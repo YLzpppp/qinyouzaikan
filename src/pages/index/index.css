@@ -1,0 +1,18 @@
+.fl{
+  display: flex;
+  flex:1;
+}
+
+.container {
+  text-align: center;
+  padding: 0;
+}
+
+.recyclerview {
+  display: flex;
+  flex:1;
+}
+
+.shadow {
+  box-shadow: 0px 10px 50px 10px rgba(85, 85, 85, 0.10);
+}

@@ -1,0 +1,26 @@
+{
+  "name": "qinyouzaikan",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Remax Project",
+  "main": "index.js",
+  "keywords": [],
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "dev": "remax build -t wechat -w",
+    "build": "cross-env NODE_ENV=production remax build -t wechat"
+  },
+  "dependencies": {
+    "annar": "^2.0.7",
+    "constate": "^3.1.0",
+    "mobx": "^6.0.4",
+    "mobx-react": "^7.0.5",
+    "react": "^16.14.0",
+    "remax": "^2.9.1",
+    "remax-recycle-view": "^1.1.1"
+  },
+  "devDependencies": {
+    "cross-env": "^7.0.2"
+  }
+}
