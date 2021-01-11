@@ -33540,6 +33540,10 @@ module.exports = function (module) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var mobx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! mobx */ "./node_modules/mobx/dist/mobx.esm.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
@@ -33554,15 +33558,29 @@ var AppStore = /*#__PURE__*/function () {
   function AppStore() {
     _classCallCheck(this, AppStore);
 
+    _defineProperty(this, "enableBack", true);
+
     _defineProperty(this, "item", {});
+
+    _defineProperty(this, "nextItem", {});
 
     Object(mobx__WEBPACK_IMPORTED_MODULE_0__["makeAutoObservable"])(this);
   }
 
   _createClass(AppStore, [{
+    key: "toggleEnableBack",
+    value: function toggleEnableBack(back) {
+      this.enableBack = back;
+    }
+  }, {
     key: "changeItem",
     value: function changeItem(newValue) {
-      this.item = newValue;
+      this.item = _objectSpread({}, newValue);
+    }
+  }, {
+    key: "changeNextItem",
+    value: function changeNextItem(newValue) {
+      this.nextItem = _objectSpread({}, newValue);
     }
   }]);
 
@@ -33570,6 +33588,60 @@ var AppStore = /*#__PURE__*/function () {
 }();
 
 /* harmony default export */ __webpack_exports__["default"] = (new AppStore());
+
+/***/ }),
+
+/***/ "./src/utils/DisplayHelper.js":
+/*!************************************!*\
+  !*** ./src/utils/DisplayHelper.js ***!
+  \************************************/
+/*! exports provided: rtx, pix, sw, sh */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rtx", function() { return rtx; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pix", function() { return pix; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sw", function() { return sw; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sh", function() { return sh; });
+/* harmony import */ var remax_wechat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! remax/wechat */ "./node_modules/remax/wechat.js");
+
+var sysInfo = Object(remax_wechat__WEBPACK_IMPORTED_MODULE_0__["getSystemInfoSync"])();
+var sw = sysInfo.screenWidth;
+var sh = sysInfo.screenHeight;
+var RATIO = Math.ceil(750 / sw);
+
+function rtx(n) {
+  return RATIO * n;
+}
+
+function pix(v) {
+  return "".concat(v, "PX");
+}
+
+
+
+/***/ }),
+
+/***/ "./src/utils/index.js":
+/*!****************************!*\
+  !*** ./src/utils/index.js ***!
+  \****************************/
+/*! exports provided: rtx, pix, sw, sh */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _DisplayHelper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DisplayHelper */ "./src/utils/DisplayHelper.js");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "rtx", function() { return _DisplayHelper__WEBPACK_IMPORTED_MODULE_0__["rtx"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "pix", function() { return _DisplayHelper__WEBPACK_IMPORTED_MODULE_0__["pix"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "sw", function() { return _DisplayHelper__WEBPACK_IMPORTED_MODULE_0__["sw"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "sh", function() { return _DisplayHelper__WEBPACK_IMPORTED_MODULE_0__["sh"]; });
+
+
 
 /***/ })
 

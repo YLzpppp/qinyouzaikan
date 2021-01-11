@@ -1,16 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  Video,
-  getSystemInfoSync,
-  Button,
-  onShareAppMessage,
-  Page,
-  request,
-  ScrollView
-} from "remax/wechat";
+import {View,Text,Image,Video,Button,request,pageScrollTo, navigateTo} from "remax/wechat";
 import styles from "./index.css";
 import { usePageEvent } from "remax/runtime";
 import { observer } from "mobx-react";
@@ -34,10 +23,17 @@ const CARD_CONTAINER_WIDTH = sw;
 const Index = observer((props) => {
   const [data, setvideodata] = useState([]);
 
-  // console.log('看看item是', appStore.item)
+  const fetchNextVideo = () => {
+    request({
+      url: "https://qyzs.zdw1.cn/api/video/getone",
+      success(res){
+        appStore.changeNextItem(res.data)
+      }
+    })
+  };
 
   const videoUrl = useMemo(() => {
-    return "http://1254284941.vod2.myqcloud.com/e591a6cavodcq1254284941/4558e53c5285890807458772963/f0.mp4"
+    // return "http://1254284941.vod2.myqcloud.com/e591a6cavodcq1254284941/4558e53c5285890807458772963/f0.mp4"
     let _u = '';
     if (appStore.item.url != undefined) {
       _u = appStore.item.url
@@ -75,21 +71,34 @@ const Index = observer((props) => {
       },
     });
   };
+
+  const updateNextItem = () => {
+    if(appStore.nextItem.id != undefined){
+      appStore.changeItem(appStore.nextItem)
+    }
+  }
+
   useEffect(() => {
     fetchList();
+    fetchNextVideo();
   }, []);
+
+  usePageEvent("onUnload",function(){
+    navigateTo({
+      url: `/pages/detail/index`
+    });
+    updateNextItem();
+  });
+
+  const onRecommendVideoTap = (item) => {
+    appStore.changeItem(item)
+    pageScrollTo({
+      scrollTop:0
+    }) 
+  }
 
   return (
     <View className={styles.app}> 
-    {/* <ScrollView 
-    style={{
-      display:'flex',
-      flex:1,
-      height:rtx(sh),
-      width:rtx(sw),
-      whiteSpace:'nowrap'
-    }}
-    scrollY> */}
       <View className={styles.header}>
         <Video
           src={videoUrl}
@@ -222,12 +231,7 @@ const Index = observer((props) => {
                       // backgroundColor: '#FF0000'
                     }} />
                     <View 
-                    onTap={() => {
-                      appStore.changeItem(item)
-                      navigateTo({
-                        url: `/pages/detail/index`
-                      })
-                    }}
+                    onTap={() => onRecommendVideoTap(item)}
                     style={{
                       display: 'flex',
                       flex: 1.8,
@@ -243,7 +247,6 @@ const Index = observer((props) => {
                           width: 120
                         }}
                       />
-                      {/* <Navigator url={"/pages/detail/index"} openType={"navigate"}>详情页</Navigator> */}
                     </View>
                     <View style={{
                       display: 'flex',
@@ -272,7 +275,6 @@ const Index = observer((props) => {
             )
           })
         }
-      {/* </ScrollView> */}
     </View>
   );
 });

@@ -90,11 +90,19 @@ var Index = Object(mobx_react__WEBPACK_IMPORTED_MODULE_4__["observer"])(function
   var _useState = Object(react__WEBPACK_IMPORTED_MODULE_0__["useState"])([]),
       _useState2 = _slicedToArray(_useState, 2),
       data = _useState2[0],
-      setvideodata = _useState2[1]; // console.log('看看item是', appStore.item)
+      setvideodata = _useState2[1];
 
+  var fetchNextVideo = function fetchNextVideo() {
+    Object(remax_wechat__WEBPACK_IMPORTED_MODULE_1__["request"])({
+      url: "https://qyzs.zdw1.cn/api/video/getone",
+      success: function success(res) {
+        _store__WEBPACK_IMPORTED_MODULE_5__["default"].changeNextItem(res.data);
+      }
+    });
+  };
 
   var videoUrl = Object(react__WEBPACK_IMPORTED_MODULE_0__["useMemo"])(function () {
-    return "http://1254284941.vod2.myqcloud.com/e591a6cavodcq1254284941/4558e53c5285890807458772963/f0.mp4";
+    // return "http://1254284941.vod2.myqcloud.com/e591a6cavodcq1254284941/4558e53c5285890807458772963/f0.mp4"
     var _u = '';
 
     if (_store__WEBPACK_IMPORTED_MODULE_5__["default"].item.url != undefined) {
@@ -138,9 +146,30 @@ var Index = Object(mobx_react__WEBPACK_IMPORTED_MODULE_4__["observer"])(function
     });
   };
 
+  var updateNextItem = function updateNextItem() {
+    if (_store__WEBPACK_IMPORTED_MODULE_5__["default"].nextItem.id != undefined) {
+      _store__WEBPACK_IMPORTED_MODULE_5__["default"].changeItem(_store__WEBPACK_IMPORTED_MODULE_5__["default"].nextItem);
+    }
+  };
+
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     fetchList();
+    fetchNextVideo();
   }, []);
+  Object(remax_runtime__WEBPACK_IMPORTED_MODULE_3__["usePageEvent"])("onUnload", function () {
+    Object(remax_wechat__WEBPACK_IMPORTED_MODULE_1__["navigateTo"])({
+      url: "/pages/detail/index"
+    });
+    updateNextItem();
+  });
+
+  var onRecommendVideoTap = function onRecommendVideoTap(item) {
+    _store__WEBPACK_IMPORTED_MODULE_5__["default"].changeItem(item);
+    Object(remax_wechat__WEBPACK_IMPORTED_MODULE_1__["pageScrollTo"])({
+      scrollTop: 0
+    });
+  };
+
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(remax_wechat__WEBPACK_IMPORTED_MODULE_1__["View"], {
     className: _index_css_modules__WEBPACK_IMPORTED_MODULE_2___default.a.app
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(remax_wechat__WEBPACK_IMPORTED_MODULE_1__["View"], {
@@ -280,10 +309,7 @@ var Index = Object(mobx_react__WEBPACK_IMPORTED_MODULE_4__["observer"])(function
       }
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(remax_wechat__WEBPACK_IMPORTED_MODULE_1__["View"], {
       onTap: function onTap() {
-        _store__WEBPACK_IMPORTED_MODULE_5__["default"].changeItem(item);
-        navigateTo({
-          url: "/pages/detail/index"
-        });
+        return onRecommendVideoTap(item);
       },
       style: {
         display: 'flex',
@@ -323,60 +349,6 @@ var Index = Object(mobx_react__WEBPACK_IMPORTED_MODULE_4__["observer"])(function
   }));
 });
 /* harmony default export */ __webpack_exports__["default"] = (Index);
-
-/***/ }),
-
-/***/ "./src/utils/DisplayHelper.js":
-/*!************************************!*\
-  !*** ./src/utils/DisplayHelper.js ***!
-  \************************************/
-/*! exports provided: rtx, pix, sw, sh */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "rtx", function() { return rtx; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "pix", function() { return pix; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sw", function() { return sw; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "sh", function() { return sh; });
-/* harmony import */ var remax_wechat__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! remax/wechat */ "./node_modules/remax/wechat.js");
-
-var sysInfo = Object(remax_wechat__WEBPACK_IMPORTED_MODULE_0__["getSystemInfoSync"])();
-var sw = sysInfo.screenWidth;
-var sh = sysInfo.screenHeight;
-var RATIO = Math.ceil(750 / sw);
-
-function rtx(n) {
-  return RATIO * n;
-}
-
-function pix(v) {
-  return "".concat(v, "PX");
-}
-
-
-
-/***/ }),
-
-/***/ "./src/utils/index.js":
-/*!****************************!*\
-  !*** ./src/utils/index.js ***!
-  \****************************/
-/*! exports provided: rtx, pix, sw, sh */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _DisplayHelper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./DisplayHelper */ "./src/utils/DisplayHelper.js");
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "rtx", function() { return _DisplayHelper__WEBPACK_IMPORTED_MODULE_0__["rtx"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "pix", function() { return _DisplayHelper__WEBPACK_IMPORTED_MODULE_0__["pix"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "sw", function() { return _DisplayHelper__WEBPACK_IMPORTED_MODULE_0__["sw"]; });
-
-/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "sh", function() { return _DisplayHelper__WEBPACK_IMPORTED_MODULE_0__["sh"]; });
-
-
 
 /***/ }),
 

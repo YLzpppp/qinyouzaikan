@@ -47,6 +47,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _index_css_modules__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_index_css_modules__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var mobx_react__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! mobx-react */ "./node_modules/mobx-react/dist/mobxreact.esm.js");
 /* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../store */ "./src/store/index.js");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../utils */ "./src/utils/index.js");
 function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
 
 function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -72,23 +73,15 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var sysInfo = Object(remax_wechat__WEBPACK_IMPORTED_MODULE_1__["getSystemInfoSync"])();
-var sw = sysInfo.screenWidth;
-var sh = sysInfo.screenHeight;
-var RATIO = Math.ceil(750 / sw);
-
-function rtx(n) {
-  return RATIO * n;
-}
 
 var RADIUS = 12;
 var CARD_GAP = 18;
 var PADDING = 20;
-var CARD_WIDTH = sw - PADDING * 2;
+var CARD_WIDTH = _utils__WEBPACK_IMPORTED_MODULE_5__["sw"] - PADDING * 2;
 var CARD_HEIGHT = CARD_WIDTH * 3 / 5;
 var CARD_CONTAINER_HEIGHT = CARD_HEIGHT + CARD_GAP; //CARD_HEIGHT + CARD_GAP;
 
-var CARD_CONTAINER_WIDTH = sw;
+var CARD_CONTAINER_WIDTH = _utils__WEBPACK_IMPORTED_MODULE_5__["sw"];
 var TEXT_DEFAULT = '#121212';
 var TEXT_ACTIVE = '#FA2641';
 var Index = Object(mobx_react__WEBPACK_IMPORTED_MODULE_3__["observer"])(function (props) {
@@ -168,7 +161,6 @@ var Index = Object(mobx_react__WEBPACK_IMPORTED_MODULE_3__["observer"])(function
   var onScrollToLower = function onScrollToLower(event) {
     // console.log("滚动到底部",isFetchingRef.current)
     if (isFetchingRef.current == false) {
-      console.log("滚动到底部 INNER");
       var type = tabsData[currentTabIndex];
       currentFetchPageRef.current += 1;
       fetchList(type, true);
@@ -185,6 +177,13 @@ var Index = Object(mobx_react__WEBPACK_IMPORTED_MODULE_3__["observer"])(function
       fetchList(type, false);
     }
   }, [currentTabIndex, tabsData]);
+
+  var onVideoItemTap = function onVideoItemTap(item) {
+    _store__WEBPACK_IMPORTED_MODULE_4__["default"].changeItem(item);
+    Object(remax_wechat__WEBPACK_IMPORTED_MODULE_1__["navigateTo"])({
+      url: "/pages/detail/index"
+    });
+  };
 
   if (error) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(remax_wechat__WEBPACK_IMPORTED_MODULE_1__["View"], {
@@ -223,7 +222,7 @@ var Index = Object(mobx_react__WEBPACK_IMPORTED_MODULE_3__["observer"])(function
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'space-evenly',
-      height: rtx(50),
+      height: Object(_utils__WEBPACK_IMPORTED_MODULE_5__["rtx"])(50),
       width: '100%',
       backgroundColor: 'white',
       borderStyle: "solid",
@@ -255,7 +254,7 @@ var Index = Object(mobx_react__WEBPACK_IMPORTED_MODULE_3__["observer"])(function
       display: 'flex',
       flex: 1,
       // backgroundColor:'',
-      height: rtx(50),
+      height: Object(_utils__WEBPACK_IMPORTED_MODULE_5__["rtx"])(50),
       width: '100%'
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(remax_wechat__WEBPACK_IMPORTED_MODULE_1__["ScrollView"], {
@@ -265,8 +264,8 @@ var Index = Object(mobx_react__WEBPACK_IMPORTED_MODULE_3__["observer"])(function
     style: {
       display: 'flex',
       flex: 1,
-      height: rtx(sh) - rtx(50),
-      width: rtx(sw),
+      height: Object(_utils__WEBPACK_IMPORTED_MODULE_5__["rtx"])(_utils__WEBPACK_IMPORTED_MODULE_5__["sh"]) - Object(_utils__WEBPACK_IMPORTED_MODULE_5__["rtx"])(50),
+      width: Object(_utils__WEBPACK_IMPORTED_MODULE_5__["rtx"])(_utils__WEBPACK_IMPORTED_MODULE_5__["sw"]),
       whiteSpace: 'nowrap'
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(remax_wechat__WEBPACK_IMPORTED_MODULE_1__["View"], {
@@ -274,7 +273,7 @@ var Index = Object(mobx_react__WEBPACK_IMPORTED_MODULE_3__["observer"])(function
       display: 'flex',
       flex: 1,
       // backgroundColor:'#88ff99',
-      height: rtx(10),
+      height: Object(_utils__WEBPACK_IMPORTED_MODULE_5__["rtx"])(10),
       width: '100%'
     }
   }), videoData.map(function (item, index) {
@@ -285,7 +284,7 @@ var Index = Object(mobx_react__WEBPACK_IMPORTED_MODULE_3__["observer"])(function
         display: 'flex',
         flex: 1,
         width: '100%',
-        height: rtx(CARD_CONTAINER_HEIGHT)
+        height: Object(_utils__WEBPACK_IMPORTED_MODULE_5__["rtx"])(CARD_CONTAINER_HEIGHT)
       },
       __key: index
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(remax_wechat__WEBPACK_IMPORTED_MODULE_1__["View"], {
@@ -293,13 +292,13 @@ var Index = Object(mobx_react__WEBPACK_IMPORTED_MODULE_3__["observer"])(function
       style: {
         display: 'inline-block',
         position: 'relative',
-        width: rtx(CARD_WIDTH),
-        height: rtx(CARD_HEIGHT),
+        width: Object(_utils__WEBPACK_IMPORTED_MODULE_5__["rtx"])(CARD_WIDTH),
+        height: Object(_utils__WEBPACK_IMPORTED_MODULE_5__["rtx"])(CARD_HEIGHT),
         backgroundColor: 'white',
-        borderRadius: rtx(RADIUS),
+        borderRadius: Object(_utils__WEBPACK_IMPORTED_MODULE_5__["rtx"])(RADIUS),
         marginBottom: CARD_GAP,
-        marginLeft: rtx(PADDING),
-        marginRight: rtx(PADDING)
+        marginLeft: Object(_utils__WEBPACK_IMPORTED_MODULE_5__["rtx"])(PADDING),
+        marginRight: Object(_utils__WEBPACK_IMPORTED_MODULE_5__["rtx"])(PADDING)
       }
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(remax_wechat__WEBPACK_IMPORTED_MODULE_1__["Image"], {
       style: {
@@ -337,10 +336,7 @@ var Index = Object(mobx_react__WEBPACK_IMPORTED_MODULE_3__["observer"])(function
       }
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default.a.createElement(remax_wechat__WEBPACK_IMPORTED_MODULE_1__["View"], {
       onTap: function onTap() {
-        _store__WEBPACK_IMPORTED_MODULE_4__["default"].changeItem(item);
-        Object(remax_wechat__WEBPACK_IMPORTED_MODULE_1__["navigateTo"])({
-          url: "/pages/detail/index"
-        });
+        return onVideoItemTap(item);
       },
       style: {
         display: 'flex',

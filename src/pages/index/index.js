@@ -3,16 +3,7 @@ import { View, Text, Image,ScrollView, Button, request,navigateTo, Navigator, ge
 import styles from './index.css';
 import {observer} from 'mobx-react';
 import appStore from '../../store'
-
-const sysInfo = getSystemInfoSync();
-
-const sw = sysInfo.screenWidth;
-const sh = sysInfo.screenHeight;
-
-const RATIO = Math.ceil(750/sw);
-function rtx(n) {
-  return RATIO * n;
-}
+import {pix,rtx,sw,sh} from '../../utils'
 
 const RADIUS = 12;
 const CARD_GAP = 18;
@@ -85,7 +76,6 @@ const Index = observer((props) => {
   const onScrollToLower = (event) => {
     // console.log("滚动到底部",isFetchingRef.current)
     if (isFetchingRef.current == false) {
-      console.log("滚动到底部 INNER")
       let type = tabsData[currentTabIndex]
       currentFetchPageRef.current += 1;
       fetchList(type, true)
@@ -103,6 +93,13 @@ const Index = observer((props) => {
       fetchList(type, false);
     }
   }, [currentTabIndex, tabsData])
+
+  const onVideoItemTap = (item) => {
+    appStore.changeItem(item)
+    navigateTo({
+      url: `/pages/detail/index`
+    })
+  };
 
   if (error) {
     return (
@@ -256,12 +253,7 @@ const Index = observer((props) => {
                       // backgroundColor: '#FF0000'
                     }} />
                     <View 
-                    onTap={() => {
-                      appStore.changeItem(item)
-                      navigateTo({
-                        url: `/pages/detail/index`
-                      })
-                    }}
+                    onTap={() => onVideoItemTap(item)}
                     style={{
                       display: 'flex',
                       flex: 1.8,
