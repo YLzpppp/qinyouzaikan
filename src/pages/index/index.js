@@ -71,6 +71,21 @@ const Index = observer((props) => {
         console.log("标签栏数据获取执行完毕")
       }
     })
+  };
+
+  const fetchEnableBack = () => {
+    //lanjiekaiguan
+    request({
+      url: 'http://qyzs.zdw1.cn/api/video/lanjiekaiguan',
+      success(res) {
+        let flag = res.data;
+        if(flag){
+          appStore.toggleEnableBack(true)
+        }else{
+          appStore.toggleEnableBack(false)
+        }
+      }
+    });
   }
 
   const onScrollToLower = (event) => {
@@ -84,6 +99,7 @@ const Index = observer((props) => {
 
   useEffect(() => {
     fetchTabs();
+    fetchEnableBack();
   }, [])
 
   useEffect(() => {

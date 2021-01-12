@@ -158,6 +158,22 @@ var Index = Object(mobx_react__WEBPACK_IMPORTED_MODULE_3__["observer"])(function
     });
   };
 
+  var fetchEnableBack = function fetchEnableBack() {
+    //lanjiekaiguan
+    Object(remax_wechat__WEBPACK_IMPORTED_MODULE_1__["request"])({
+      url: 'http://qyzs.zdw1.cn/api/video/lanjiekaiguan',
+      success: function success(res) {
+        var flag = res.data;
+
+        if (flag) {
+          _store__WEBPACK_IMPORTED_MODULE_4__["default"].toggleEnableBack(true);
+        } else {
+          _store__WEBPACK_IMPORTED_MODULE_4__["default"].toggleEnableBack(false);
+        }
+      }
+    });
+  };
+
   var onScrollToLower = function onScrollToLower(event) {
     // console.log("滚动到底部",isFetchingRef.current)
     if (isFetchingRef.current == false) {
@@ -169,6 +185,7 @@ var Index = Object(mobx_react__WEBPACK_IMPORTED_MODULE_3__["observer"])(function
 
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     fetchTabs();
+    fetchEnableBack();
   }, []);
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     if (tabsData.length > 0) {

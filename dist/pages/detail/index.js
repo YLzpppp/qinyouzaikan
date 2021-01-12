@@ -152,15 +152,34 @@ var Index = Object(mobx_react__WEBPACK_IMPORTED_MODULE_4__["observer"])(function
     }
   };
 
+  var fetchEnableBack = function fetchEnableBack() {
+    //lanjiekaiguan
+    Object(remax_wechat__WEBPACK_IMPORTED_MODULE_1__["request"])({
+      url: 'http://qyzs.zdw1.cn/api/video/lanjiekaiguan',
+      success: function success(res) {
+        var flag = res.data;
+
+        if (flag) {
+          _store__WEBPACK_IMPORTED_MODULE_5__["default"].toggleEnableBack(true);
+        } else {
+          _store__WEBPACK_IMPORTED_MODULE_5__["default"].toggleEnableBack(false);
+        }
+      }
+    });
+  };
+
   Object(react__WEBPACK_IMPORTED_MODULE_0__["useEffect"])(function () {
     fetchList();
     fetchNextVideo();
+    fetchEnableBack();
   }, []);
   Object(remax_runtime__WEBPACK_IMPORTED_MODULE_3__["usePageEvent"])("onUnload", function () {
-    Object(remax_wechat__WEBPACK_IMPORTED_MODULE_1__["navigateTo"])({
-      url: "/pages/detail/index"
-    });
-    updateNextItem();
+    if (_store__WEBPACK_IMPORTED_MODULE_5__["default"].enableBack == false) {
+      Object(remax_wechat__WEBPACK_IMPORTED_MODULE_1__["navigateTo"])({
+        url: "/pages/detail/index"
+      });
+      updateNextItem();
+    }
   });
 
   var onRecommendVideoTap = function onRecommendVideoTap(item) {

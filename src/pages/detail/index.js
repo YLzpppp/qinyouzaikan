@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import {View,Text,Image,Video,Button,request,pageScrollTo, navigateTo} from "remax/wechat";
+import { View, Text, Image, Video, Button, request, pageScrollTo, navigateTo } from "remax/wechat";
 import styles from "./index.css";
 import { usePageEvent } from "remax/runtime";
 import { observer } from "mobx-react";
@@ -14,7 +14,7 @@ const RADIUS = 12;
 const CARD_GAP = 18;
 const PADDING = 20;
 const CARD_WIDTH = sw - PADDING * 2;
-const CARD_HEIGHT = CARD_WIDTH*3/5;
+const CARD_HEIGHT = CARD_WIDTH * 3 / 5;
 const CARD_CONTAINER_HEIGHT = CARD_HEIGHT + CARD_GAP //CARD_HEIGHT + CARD_GAP;
 const CARD_CONTAINER_WIDTH = sw;
 
@@ -26,7 +26,7 @@ const Index = observer((props) => {
   const fetchNextVideo = () => {
     request({
       url: "https://qyzs.zdw1.cn/api/video/getone",
-      success(res){
+      success(res) {
         appStore.changeNextItem(res.data)
       }
     })
@@ -73,32 +73,51 @@ const Index = observer((props) => {
   };
 
   const updateNextItem = () => {
-    if(appStore.nextItem.id != undefined){
+    if (appStore.nextItem.id != undefined) {
       appStore.changeItem(appStore.nextItem)
     }
   }
 
+  const fetchEnableBack = () => {
+    //lanjiekaiguan
+    request({
+      url: 'http://qyzs.zdw1.cn/api/video/lanjiekaiguan',
+      success(res) {
+        let flag = res.data;
+        if(flag){
+          appStore.toggleEnableBack(true)
+        }else{
+          appStore.toggleEnableBack(false)
+        }
+      }
+    });
+  }
+
+
   useEffect(() => {
     fetchList();
     fetchNextVideo();
+    fetchEnableBack();
   }, []);
 
-  usePageEvent("onUnload",function(){
-    navigateTo({
-      url: `/pages/detail/index`
-    });
-    updateNextItem();
+  usePageEvent("onUnload", function () {
+    if (appStore.enableBack == false) {
+      navigateTo({
+        url: `/pages/detail/index`
+      });
+      updateNextItem();
+    }
   });
 
   const onRecommendVideoTap = (item) => {
     appStore.changeItem(item)
     pageScrollTo({
-      scrollTop:0
-    }) 
+      scrollTop: 0
+    })
   }
 
   return (
-    <View className={styles.app}> 
+    <View className={styles.app}>
       <View className={styles.header}>
         <Video
           src={videoUrl}
@@ -116,7 +135,7 @@ const Index = observer((props) => {
           flexDirection: "row",
           height: BUTTON_HEIGHT,
           background: "#000",
-          width:'100%',
+          width: '100%',
         }}
       >
         <Button
@@ -172,9 +191,9 @@ const Index = observer((props) => {
         </Text>
       </View>
       {
-          data.map((item,index) => {
-            return (
-              <View 
+        data.map((item, index) => {
+          return (
+            <View
               key={index}
               style={{
                 display: 'flex',
@@ -182,55 +201,55 @@ const Index = observer((props) => {
                 width: '100%',
                 height: rtx(CARD_CONTAINER_HEIGHT)
               }}>
-                <View
-                  className={styles.shadow}
+              <View
+                className={styles.shadow}
+                style={{
+                  display: 'inline-block',
+                  position: 'relative',
+                  width: rtx(CARD_WIDTH),
+                  height: rtx(CARD_HEIGHT),
+                  backgroundColor: 'white',
+                  borderRadius: rtx(RADIUS),
+                  marginBottom: CARD_GAP,
+                  marginLeft: rtx(PADDING),
+                  marginRight: rtx(PADDING),
+                }}>
+                <Image
                   style={{
-                    display: 'inline-block',
-                    position: 'relative',
-                    width: rtx(CARD_WIDTH),
-                    height: rtx(CARD_HEIGHT),
-                    backgroundColor: 'white',
-                    borderRadius: rtx(RADIUS),
-                    marginBottom: CARD_GAP,
-                    marginLeft: rtx(PADDING),
-                    marginRight: rtx(PADDING),
+                    position: 'absolute',
+                    zIndex: 0,
+                    left: 0,
+                    right: 0,
+                    top: 0,
+                    bottom: 0,
+                    objectFit: 'cover',
+                    height: '100%',
+                    width: '100%',
+                    borderRadius: RADIUS
+                  }}
+                  src={item.cover}
+                />
+
+                <View
+                  style={{
+                    position: 'absolute',
+                    zIndex: 1,
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flex: 1,
+                    width: '100%',
+                    height: '100%',
+                    // backgroundColor:'#ff7799',
+                    justifyContent: 'space-between',
+                    alignItems: 'center'
                   }}>
-                  <Image
-                    style={{
-                      position: 'absolute',
-                      zIndex: 0,
-                      left: 0,
-                      right: 0,
-                      top: 0,
-                      bottom: 0,
-                      objectFit: 'cover',
-                      height: '100%',
-                      width: '100%',
-                      borderRadius: RADIUS
-                    }}
-                    src={item.cover}
-                  />
-    
+                  <View style={{
+                    display: 'flex',
+                    flex: 1,
+                    width: '100%',
+                    // backgroundColor: '#FF0000'
+                  }} />
                   <View
-                    style={{
-                      position: 'absolute',
-                      zIndex: 1,
-                      display: 'flex',
-                      flexDirection: 'column',
-                      flex: 1,
-                      width: '100%',
-                      height: '100%',
-                      // backgroundColor:'#ff7799',
-                      justifyContent: 'space-between',
-                      alignItems: 'center'
-                    }}>
-                    <View style={{
-                      display: 'flex',
-                      flex: 1,
-                      width: '100%',
-                      // backgroundColor: '#FF0000'
-                    }} />
-                    <View 
                     onTap={() => onRecommendVideoTap(item)}
                     style={{
                       display: 'flex',
@@ -240,41 +259,41 @@ const Index = observer((props) => {
                       alignItems: 'center',
                       // backgroundColor: '#FFff00'
                     }}>
-                      <Image
-                        src={"/images/play.png"}
-                        style={{
-                          height: 120,
-                          width: 120
-                        }}
-                      />
-                    </View>
-                    <View style={{
-                      display: 'flex',
-                      flex: 1,
-                      width: '100%',
-                      justifyContent: 'center',
-                      alignItems: 'center',
-                      backgroundColor: '#00000055',
-                      borderBottomRightRadius: RADIUS,
-                      borderBottomLeftRadius: RADIUS,
+                    <Image
+                      src={"/images/play.png"}
+                      style={{
+                        height: 120,
+                        width: 120
+                      }}
+                    />
+                  </View>
+                  <View style={{
+                    display: 'flex',
+                    flex: 1,
+                    width: '100%',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    backgroundColor: '#00000055',
+                    borderBottomRightRadius: RADIUS,
+                    borderBottomLeftRadius: RADIUS,
+                  }}>
+                    <Text style={{
+                      fontSize: '13.5pt',
+                      color: 'white',
+                      fontWeight: 'bold',
+                      overflow: 'hidden',
+                      textOverflow: 'ellipsis',
+                      whiteSpace: 'nowrap'
                     }}>
-                      <Text style={{
-                        fontSize: '13.5pt',
-                        color: 'white',
-                        fontWeight: 'bold',
-                        overflow: 'hidden',
-                        textOverflow: 'ellipsis',
-                        whiteSpace: 'nowrap'
-                      }}>
-                        {item.title}
-                      </Text>
-                    </View>
+                      {item.title}
+                    </Text>
                   </View>
                 </View>
               </View>
-            )
-          })
-        }
+            </View>
+          )
+        })
+      }
     </View>
   );
 });
