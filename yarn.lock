@@ -877,7 +877,7 @@
     pirates "^4.0.0"
     source-map-support "^0.5.16"
 
-"@babel/runtime@^7.10.1", "@babel/runtime@^7.7.2", "@babel/runtime@^7.7.7", "@babel/runtime@^7.8.4":
+"@babel/runtime@^7.7.2", "@babel/runtime@^7.7.7", "@babel/runtime@^7.8.4":
   version "7.12.5"
   resolved "https://registry.npm.taobao.org/@babel/runtime/download/@babel/runtime-7.12.5.tgz?cache=0&sync_timestamp=1604441208794&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2F%40babel%2Fruntime%2Fdownload%2F%40babel%2Fruntime-7.12.5.tgz#410e7e487441e1b360c29be715d870d9b985882e"
   integrity sha1-QQ5+SHRB4bNgwpvnFdhw2bmFiC4=
@@ -1461,15 +1461,6 @@ ajv@^6.1.0, ajv@^6.10.2, ajv@^6.12.4, ajv@^6.12.5:
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
-
-annar@^2.0.7:
-  version "2.0.7"
-  resolved "https://registry.npm.taobao.org/annar/download/annar-2.0.7.tgz#20b34e8f75f815f4bae8dff09d87e41f98780aa9"
-  integrity sha1-ILNOj3X4FfS66N/wnYfkH5h4Cqk=
-  dependencies:
-    "@babel/runtime" "^7.10.1"
-    classnames "^2.2.6"
-    dayjs "^1.8.23"
 
 ansi-colors@^3.0.0:
   version "3.2.4"
@@ -2191,7 +2182,7 @@ class-utils@^0.3.5:
     isobject "^3.0.0"
     static-extend "^0.1.1"
 
-classnames@^2.2.5, classnames@^2.2.6:
+classnames@^2.2.5:
   version "2.2.6"
   resolved "https://registry.npm.taobao.org/classnames/download/classnames-2.2.6.tgz#43935bffdd291f326dad0a205309b38d00f650ce"
   integrity sha1-Q5Nb/90pHzJtrQogUwmzjQD2UM4=
@@ -2350,11 +2341,6 @@ constants-browserify@^1.0.0:
   version "1.0.0"
   resolved "https://registry.npm.taobao.org/constants-browserify/download/constants-browserify-1.0.0.tgz#c20b96d8c617748aaf1c16021760cd27fcb8cb75"
   integrity sha1-wguW2MYXdIqvHBYCF2DNJ/y4y3U=
-
-constate@^3.1.0:
-  version "3.1.0"
-  resolved "https://registry.npm.taobao.org/constate/download/constate-3.1.0.tgz#6a84da7f8051334a77a6a92860e4058b2eae96c1"
-  integrity sha1-aoTaf4BRM0p3pqkoYOQFiy6ulsE=
 
 content-disposition@0.5.3:
   version "0.5.3"
@@ -2623,11 +2609,6 @@ cyclist@^1.0.1:
   version "1.0.1"
   resolved "https://registry.npm.taobao.org/cyclist/download/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
-
-dayjs@^1.8.23:
-  version "1.10.2"
-  resolved "https://registry.npm.taobao.org/dayjs/download/dayjs-1.10.2.tgz?cache=0&sync_timestamp=1609889123265&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fdayjs%2Fdownload%2Fdayjs-1.10.2.tgz#8f3a424ceb944a8193506804b0045a773d2d0672"
-  integrity sha1-jzpCTOuUSoGTUGgEsARadz0tBnI=
 
 debug@2.6.9, debug@^2.2.0, debug@^2.3.3, debug@^2.6.0:
   version "2.6.9"
@@ -5936,11 +5917,6 @@ relateurl@^0.2.7:
   version "0.2.7"
   resolved "https://registry.npm.taobao.org/relateurl/download/relateurl-0.2.7.tgz#54dbf377e51440aca90a4cd274600d3ff2d888a9"
   integrity sha1-VNvzd+UUQKypCkzSdGANP/LYiKk=
-
-remax-recycle-view@^1.1.1:
-  version "1.1.1"
-  resolved "https://registry.npm.taobao.org/remax-recycle-view/download/remax-recycle-view-1.1.1.tgz#54876635e3308caffddcc3004264e29d84ae5c28"
-  integrity sha1-VIdmNeMwjK/93MMAQmTinYSuXCg=
 
 remax-stats@^0.1.1:
   version "0.1.9"

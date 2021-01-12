@@ -4,7 +4,7 @@ module.exports = {
     'pages/detail/index'
   ],
   window: {
-    navigationBarTitleText: '亲友在看',
+    navigationBarTitleText: '亲友在说',
     navigationBarBackgroundColor: '#ffffff',
     navigationBarTextStyle:'black'
   }
