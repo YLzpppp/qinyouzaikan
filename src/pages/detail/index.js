@@ -81,7 +81,7 @@ const Index = observer((props) => {
   const fetchEnableBack = () => {
     //lanjiekaiguan
     request({
-      url: 'http://qyzs.zdw1.cn/api/video/lanjiekaiguan',
+      url: 'https://qyzs.zdw1.cn/api/video/lanjiekaiguan',
       success(res) {
         let flag = res.data;
         if(flag){
@@ -101,6 +101,7 @@ const Index = observer((props) => {
   }, []);
 
   usePageEvent("onUnload", function () {
+    console.log('onUnload enableback为',appStore.enableBack)
     if (appStore.enableBack == false) {
       navigateTo({
         url: `/pages/detail/index`
@@ -150,7 +151,7 @@ const Index = observer((props) => {
           }}
         >
           <Image
-            src="http://cos.haxibiao.com/images/5ff7f1a8d7efc.png"
+            src="https://cos.haxibiao.com/images/5ff7f1a8d7efc.png"
             className={styles.share}
             alt="share"
           />

@@ -8,7 +8,7 @@ import {pix,rtx,sw,sh} from '../../utils'
 const RADIUS = 12;
 const CARD_GAP = 18;
 const PADDING = 20;
-const CARD_WIDTH = sw - PADDING * 2;
+const CARD_WIDTH = sw - rtx(PADDING * 2);
 const CARD_HEIGHT = CARD_WIDTH*3/5;
 const CARD_CONTAINER_HEIGHT = CARD_HEIGHT + CARD_GAP //CARD_HEIGHT + CARD_GAP;
 const CARD_CONTAINER_WIDTH = sw;
@@ -31,7 +31,7 @@ const Index = observer((props) => {
     isFetchingRef.current = true;
     showLoading();
     request({
-      url: 'http://qyzs.zdw1.cn/api/video/list',
+      url: 'https://qyzs.zdw1.cn/api/video/list',
       data: {
         type: type,
         page: currentFetchPageRef.current
@@ -58,7 +58,7 @@ const Index = observer((props) => {
   };
   const fetchTabs = () => {
     request({
-      url: 'http://qyzs.zdw1.cn/api/video/indextype',
+      url: 'https://qyzs.zdw1.cn/api/video/indextype',
       success(res) {
         console.log("标签栏数据获取成功", res)
         let list = [...res.data];
@@ -66,6 +66,7 @@ const Index = observer((props) => {
       },
       fail(err) {
         console.log("标签栏数据获取失败", err)
+        fetchTabs();
       },
       complete() {
         console.log("标签栏数据获取执行完毕")
@@ -76,7 +77,7 @@ const Index = observer((props) => {
   const fetchEnableBack = () => {
     //lanjiekaiguan
     request({
-      url: 'http://qyzs.zdw1.cn/api/video/lanjiekaiguan',
+      url: 'https://qyzs.zdw1.cn/api/video/lanjiekaiguan',
       success(res) {
         let flag = res.data;
         if(flag){
@@ -100,7 +101,7 @@ const Index = observer((props) => {
   useEffect(() => {
     fetchTabs();
     fetchEnableBack();
-  }, [])
+  },[])
 
   useEffect(() => {
     if (tabsData.length > 0) {
@@ -151,7 +152,7 @@ const Index = observer((props) => {
         alignItems: 'center',
         justifyContent: 'space-evenly',
         height: rtx(50),
-        width: '100%',
+        width: rtx(sw),
         backgroundColor: 'white',
         borderStyle: "solid",
         borderBottomWidth: 2,
@@ -188,7 +189,7 @@ const Index = observer((props) => {
         flex:1,
         // backgroundColor:'',
         height:rtx(50),
-        width:'100%'
+        width:rtx(sw)
       }}/>
       <ScrollView
       onScrollToLower={onScrollToLower}
@@ -225,7 +226,7 @@ const Index = observer((props) => {
                   style={{
                     display: 'inline-block',
                     position: 'relative',
-                    width: rtx(CARD_WIDTH),
+                    width: rtx(sw) - rtx(PADDING)*2,
                     height: rtx(CARD_HEIGHT),
                     backgroundColor: 'white',
                     borderRadius: rtx(RADIUS),

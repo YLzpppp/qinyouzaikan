@@ -3,7 +3,7 @@ const sysInfo = getSystemInfoSync();
 const sw = sysInfo.screenWidth;
 const sh = sysInfo.screenHeight;
 
-const RATIO = Math.ceil(750/sw);
+const RATIO = 750/sw;
 
 function rtx(n) {
   return RATIO * n;

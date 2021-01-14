@@ -1,14 +1,10 @@
-import { makeAutoObservable } from 'mobx'
+import { observable,action,decorate } from 'mobx'
 
 class AppStore {
 
     enableBack = true
     item = {}
     nextItem = {}
-
-    constructor(){
-        makeAutoObservable(this)
-    }
 
     toggleEnableBack(back){
         this.enableBack = back;
@@ -21,4 +17,14 @@ class AppStore {
     }
 }
 
-export default new AppStore();
+decorate(AppStore,{
+    enableBack: observable,
+    item:observable,
+    nextItem:observable,
+    toggleEnableBack:action,
+    changeItem:action,
+    changeNextItem:action
+});
+
+const appStore = new AppStore();
+export default appStore;
